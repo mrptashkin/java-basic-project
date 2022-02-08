@@ -145,7 +145,7 @@ public class Converter {
     }
 
 
-    static String matchingMillion(@NotNull String substringMillion, int indexOfCurrency) {
+    public static String matchingMillion(@NotNull String substringMillion, int indexOfCurrency) {
         String matchedMillion;
         String lastDigit = substringMillion.substring(substringMillion.length() - 1);
         String thousandResult = gettingHundreds(substringMillion, indexOfCurrency);

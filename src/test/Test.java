@@ -6,6 +6,7 @@ public class Test {
         new ConverterTest().testingGettingDecades();
         new ConverterTest().testingGettingHundreds();
         new ConverterTest().testingMatchingThousand();
+        new ConverterTest().testingMatchingMillion();
         new ConverterTest().testingMatchingCurrency();
     }
 }

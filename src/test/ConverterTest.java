@@ -79,6 +79,25 @@ public class ConverterTest {
         }
     }
 
+    void testingMatchingMillion() {
+        String scenario = "Тест корректности работы функции matchingMillion";
+        try {
+            String[] inputValues = {"1", "2", "3", "4", "5", "16", "78", "101", "999"};
+            String[] expectedOutputValues = {"один миллион", "два миллиона", "три миллиона", "четыре миллиона", "пять миллионов", "шестнадцать миллионов",
+                    "семьдесят восемь миллионов", "сто один миллион", "девятьсот девяносто девять миллионов"};
+            String[] actualOutputValues = new String[expectedOutputValues.length];
+            for (int i = 0; i < actualOutputValues.length; i++) {
+                actualOutputValues[i] = Converter.matchingMillion(inputValues[i], 1);
+                if (!expectedOutputValues[i].equals(actualOutputValues[i])) {
+                    throw new GettingMatchingMillionException(String.format("Неверно преобразовано %s в %s, должно быть %s", inputValues[i], actualOutputValues[i], expectedOutputValues[i]));
+                }
+            }
+            System.out.printf("%s is passed\n", scenario);
+        } catch (Throwable exception) {
+            System.err.printf("%s is fails with message %s\n", scenario, exception.getMessage());
+        }
+    }
+
     void testingMatchingCurrency() {
         String scenario = "Тест корректности работы функции matchingCurrency";
         try {
