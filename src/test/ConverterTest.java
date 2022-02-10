@@ -1,28 +1,11 @@
 package test;
 
 import service.Converter;
+import service.Currency;
 
 public class ConverterTest {
 
-    void testingGettingIndexOfUnits() {
-        String scenario = "Тест корректности работы функции gettingIndexOfUnits";
-        try {
-            String[] inputValues = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-            int[] expectedOutputValues = {0, 1, 2, 3, 4, 5, 6, 7, 8};
-            int[] actualOutputValues = new int[expectedOutputValues.length];
-            for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.gettingIndexOfUnits(inputValues[i]);
-                if (expectedOutputValues[i] != actualOutputValues[i]) {
-                    throw new GettingIndexOfIndexException(String.format("Неверно получен индекс %d для %s\n", actualOutputValues[i], inputValues[i]));
-                }
-            }
-            System.out.printf("%s is passed\n", scenario);
-        } catch (Throwable exception) {
-            System.err.printf("%s is fails with message %s\n", scenario, exception.getMessage());
-        }
-    }
-
-    void testingGettingDecades() {
+    static void testingGettingDecades() {
         String scenario = "Тест корректности работы функции gettingDecades";
         try {
             String[] inputValues = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19"};
@@ -30,9 +13,9 @@ public class ConverterTest {
                     "одиннадцать", "двенадцать", "тринадцать", "четырнадцать", "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"};
             String[] actualOutputValues = new String[expectedOutputValues.length];
             for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.gettingDecades(inputValues[i], 1);
+                actualOutputValues[i] = Converter.getDecades(inputValues[i], 1);
                 if (!expectedOutputValues[i].equals(actualOutputValues[i])) {
-                    throw new GettingDecadesException(String.format("Неверно преобразовано %s в %s", inputValues[i], expectedOutputValues[i]));
+                    throw new ConvertingException(String.format("Неверно преобразовано %s в %s", inputValues[i], expectedOutputValues[i]));
                 }
             }
             System.out.printf("%s is passed\n", scenario);
@@ -41,7 +24,7 @@ public class ConverterTest {
         }
     }
 
-    void testingGettingHundreds() {
+    static void testingGettingHundreds() {
         String scenario = "Тест корректности работы функции gettingHundreds";
         try {
             String[] inputValues = {"100", "220", "333", "404", "556", "678", "789", "890", "999", "6", "57"};
@@ -49,9 +32,9 @@ public class ConverterTest {
                     "семьсот восемьдесят девять", "восемьсот девяносто", "девятьсот девяносто девять", "шесть", "пятьдесят семь"};
             String[] actualOutputValues = new String[expectedOutputValues.length];
             for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.gettingHundreds(inputValues[i], 1);
+                actualOutputValues[i] = Converter.getHundreds(inputValues[i], 1);
                 if (!expectedOutputValues[i].equals(actualOutputValues[i])) {
-                    throw new GettingDecadesException(String.format("Неверно преобразовано %s в %s", inputValues[i], expectedOutputValues[i]));
+                    throw new ConvertingException(String.format("Неверно преобразовано %s в %s", inputValues[i], expectedOutputValues[i]));
                 }
             }
             System.out.printf("%s is passed\n", scenario);
@@ -60,7 +43,7 @@ public class ConverterTest {
         }
     }
 
-    void testingMatchingThousand() {
+    static void testingMatchingThousand() {
         String scenario = "Тест корректности работы функции matchingThousand";
         try {
             String[] inputValues = {"1", "2", "3", "4", "5", "16", "78", "101", "999"};
@@ -68,9 +51,9 @@ public class ConverterTest {
                     "семьдесят восемь тысяч", "сто одна тысяча", "девятьсот девяносто девять тысяч"};
             String[] actualOutputValues = new String[expectedOutputValues.length];
             for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.matchingThousand(inputValues[i], 1);
+                actualOutputValues[i] = Converter.matchThousand(inputValues[i], 1);
                 if (!expectedOutputValues[i].equals(actualOutputValues[i])) {
-                    throw new GettingMatchingThousandException(String.format("Неверно преобразовано %s в %s, должно быть %s", inputValues[i], actualOutputValues[i], expectedOutputValues[i]));
+                    throw new ConvertingException(String.format("Неверно преобразовано %s в %s, должно быть %s", inputValues[i], actualOutputValues[i], expectedOutputValues[i]));
                 }
             }
             System.out.printf("%s is passed\n", scenario);
@@ -79,7 +62,7 @@ public class ConverterTest {
         }
     }
 
-    void testingMatchingMillion() {
+    static void testingMatchingMillion() {
         String scenario = "Тест корректности работы функции matchingMillion";
         try {
             String[] inputValues = {"1", "2", "3", "4", "5", "16", "78", "101", "999"};
@@ -87,9 +70,9 @@ public class ConverterTest {
                     "семьдесят восемь миллионов", "сто один миллион", "девятьсот девяносто девять миллионов"};
             String[] actualOutputValues = new String[expectedOutputValues.length];
             for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.matchingMillion(inputValues[i], 1);
+                actualOutputValues[i] = Converter.matchMillion(inputValues[i], 1);
                 if (!expectedOutputValues[i].equals(actualOutputValues[i])) {
-                    throw new GettingMatchingMillionException(String.format("Неверно преобразовано %s в %s, должно быть %s", inputValues[i], actualOutputValues[i], expectedOutputValues[i]));
+                    throw new ConvertingException(String.format("Неверно преобразовано %s в %s, должно быть %s", inputValues[i], actualOutputValues[i], expectedOutputValues[i]));
                 }
             }
             System.out.printf("%s is passed\n", scenario);
@@ -98,7 +81,7 @@ public class ConverterTest {
         }
     }
 
-    void testingMatchingCurrency() {
+    static void testingMatchingCurrency() {
         String scenario = "Тест корректности работы функции matchingCurrency";
         try {
             String[] inputValues = {"0", "1", "2", "3", "4", "5", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
@@ -107,15 +90,34 @@ public class ConverterTest {
                     "шестнадцать рублей", "семнадцать рублей", "восемнадцать рублей", "девятнадцать рублей", "двадцать рублей"};
             String[] actualOutputValues = new String[expectedOutputValues.length];
             for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.matchingCurrency(inputValues[i], 1);
+                actualOutputValues[i] = Converter.matchCurrency(inputValues[i], 1);
                 if (!expectedOutputValues[i].equals(actualOutputValues[i])) {
-                    throw new MatchingCurrencyException(String.format("Неверно согласовано %s в %s", expectedOutputValues[i], actualOutputValues[i]));
+                    throw new ConvertingException(String.format("Неверно согласовано %s в %s", expectedOutputValues[i], actualOutputValues[i]));
                 }
             }
             System.out.printf("%s is passed\n", scenario);
         } catch (Throwable exception) {
             System.err.printf("%s is fails with message %s\n", scenario, exception.getMessage());
         }
+    }
+
+    static void testDefineMale() {
+        String scenario = "Тест корректности работы функции defineMale";
+        try {
+            int[] inputValues = {1, 2, 3, 4, 5, 6};
+            boolean[] expectedOutputValues = {true, true, false, true, true, false};
+            boolean[] actualOutputValues = new boolean[expectedOutputValues.length];
+            for (int i = 0; i < actualOutputValues.length; i++) {
+                actualOutputValues[i] = Converter.defineMale(inputValues[i]);
+                if (expectedOutputValues[i] != actualOutputValues[i]) {
+                    throw new ConvertingException(String.format("Неверно определен род для %s", Currency.valuesOfCurrency[inputValues[i]-1][1]));
+                }
+            }
+            System.out.printf("%s is passed\n", scenario);
+        } catch (Throwable exception) {
+            System.err.printf("%s is fails with message %s\n", scenario, exception.getMessage());
+        }
+
     }
 
 }
