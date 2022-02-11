@@ -70,7 +70,7 @@ public class ConverterTest {
                     "семьдесят восемь миллионов", "сто один миллион", "девятьсот девяносто девять миллионов"};
             String[] actualOutputValues = new String[expectedOutputValues.length];
             for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.matchMillion(inputValues[i], 1);
+                actualOutputValues[i] = Converter.matchMillion(inputValues[i]);
                 if (!expectedOutputValues[i].equals(actualOutputValues[i])) {
                     throw new ConvertingException(String.format("Неверно преобразовано %s в %s, должно быть %s", inputValues[i], actualOutputValues[i], expectedOutputValues[i]));
                 }

@@ -58,21 +58,82 @@ public class Converter {
         if (number.length() <= 2) {
             resultHundreds = getDecades(number, indexOfCurrency);
         } else {
-            String substringHundreds = number.substring(number.length() - 3, number.length() - 2);
-            String substringDecades = number.substring(number.length() - 2);
-            if (numberInt % 100 != 0)
-                if (numberInt / 100 != 0) {
-                    resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1] + " " + getDecades(substringDecades, indexOfCurrency);
-                } else {
-                    resultHundreds = getDecades(substringDecades, indexOfCurrency);
-                }
-            else {
-                resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1];
+            if (number.equals("000")) {
+                return "";
+            } else {
+                String substringHundreds = number.substring(number.length() - 3, number.length() - 2);
+                String substringDecades = number.substring(number.length() - 2);
+                if (numberInt % 100 != 0)
+                    if (numberInt / 100 != 0) {
+                        resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1] + " " + getDecades(substringDecades, indexOfCurrency);
+                    } else {
+                        resultHundreds = getDecades(substringDecades, indexOfCurrency);
+                    }
+                else {
+                    resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1];
 
+                }
             }
         }
         return resultHundreds;
     }
+
+
+    public static String getDecadesForMillion(@NotNull String d) {
+        String resultDecade = "";
+        String substringDecades;
+        if (d.length() == 2) {
+            substringDecades = d.substring(0, 1);
+        } else {
+            substringDecades = d;
+        }
+        String substringUnits = d.substring(d.length() - 1);
+        int di = Integer.parseInt(d);
+        switch (di / 10) {
+            case 0 -> {
+                if (di != 0) {
+                        resultDecade = Numbers.uniqueUnits[di - 1];
+                } else resultDecade = "ноль";
+            }
+            case 1 -> resultDecade = Numbers.uniqueDecades[di - 10];
+            case 2, 3, 4, 5, 6, 7, 8, 9 -> {
+
+                    if (di % 10 != 0) {
+                        resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2] + " " +
+                                Numbers.uniqueUnits[Integer.parseInt(substringUnits) - 1];
+                    } else {
+                        resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2];
+                    }
+            }
+            default -> System.out.println("Что-то пошло не так в gettingDecades");
+        }
+        return resultDecade;
+    }
+
+
+
+
+    public static String getMillions(String number) {
+        String resultHundreds;
+        int numberInt = Integer.parseInt(number);
+        if (number.length() <= 2) {
+            resultHundreds = getDecadesForMillion(number);
+        } else {
+            String substringHundreds = number.substring(number.length() - 3, number.length() - 2);
+            String substringDecades = number.substring(number.length() - 2);
+            if (numberInt % 100 != 0)
+                if (numberInt / 100 != 0) {
+                    resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1] + " " + getDecadesForMillion(substringDecades);
+                } else {
+                    resultHundreds = getDecadesForMillion(substringDecades);
+                }
+            else {
+                resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1];
+            }
+        }
+        return resultHundreds;
+    }
+
 
     static String convertNumber(@NotNull String number, int indexOfCurrency) {
         String finalResult = "";
@@ -88,7 +149,7 @@ public class Converter {
                 String substringMillion = number.substring(0, numberLength - 6);
                 String substringThousand = number.substring(numberLength - 6, numberLength - 3);
                 String substringHundreds = number.substring(numberLength - 3);
-                finalResult = matchMillion(substringMillion, indexOfCurrency) + " " + matchThousand(substringThousand, indexOfCurrency) + " " + getHundreds(substringHundreds, indexOfCurrency);
+                finalResult = matchMillion(substringMillion) + " " + matchThousand(substringThousand, indexOfCurrency) + " " + getHundreds(substringHundreds, indexOfCurrency);
             }
         }
         return finalResult;
@@ -145,15 +206,15 @@ public class Converter {
     }
 
 
-    public static String matchMillion(@NotNull String substringMillion, int indexOfCurrency) {
+    public static String matchMillion(@NotNull String substringMillion) {
         String matchedMillion;
         String lastDigit = substringMillion.substring(substringMillion.length() - 1);
-        String thousandResult = getHundreds(substringMillion, indexOfCurrency);
+        String millionResult = getMillions(substringMillion);
         int lastDigitInt = Integer.parseInt(lastDigit);
         switch (lastDigitInt) {
-            case 1 -> matchedMillion = thousandResult + " " + Numbers.millions[0];
-            case 2, 3, 4 -> matchedMillion = thousandResult + " " + Numbers.millions[1];
-            default -> matchedMillion = thousandResult + " " + Numbers.millions[2];
+            case 1 -> matchedMillion = millionResult + " " + Numbers.millions[0];
+            case 2, 3, 4 -> matchedMillion = millionResult + " " + Numbers.millions[1];
+            default -> matchedMillion = millionResult + " " + Numbers.millions[2];
         }
         return matchedMillion;
     }
@@ -166,7 +227,7 @@ public class Converter {
 
     public static boolean defineMale(int indexOfCurrency) {
         for (int i = 0; i < Currency.femaleCurrencies.length; i++) {
-            if (Currency.valuesOfCurrency[indexOfCurrency-1][0].equals(Currency.femaleCurrencies[i]))
+            if (Currency.valuesOfCurrency[indexOfCurrency - 1][0].equals(Currency.femaleCurrencies[i]))
                 return false;
         }
         return true;

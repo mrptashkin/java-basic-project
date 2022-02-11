@@ -9,5 +9,6 @@ public class Currency {
             {"юань", "юаня", "юаней", "ЮАНИ:"},
             {"йена", "йены", "йен", "ЙЕНЫ:"}
     };
+
     final static String[] femaleCurrencies = {"лира","йена"};
 }
