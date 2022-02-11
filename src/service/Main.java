@@ -20,7 +20,12 @@ public class Main {
             String numberOfCurrency = scanner.next();
             if (numberOfCurrency.matches(regexCurrency)) {
                 int numberOfCurrencyInt = Integer.parseInt(numberOfCurrency);
-                System.out.printf("Вы выбрали %s\n", Currency.valuesOfCurrency[numberOfCurrencyInt - 1][3]);
+                if (numberOfCurrencyInt > 0) {
+                    System.out.printf("Вы выбрали %s\n", Currency.valuesOfCurrency[numberOfCurrencyInt - 1][3]);
+                } else {
+                    System.out.println("Вы вышли из программы");
+                    break;
+                }
                 while (true) {
                     System.out.println(Currency.valuesOfCurrency[numberOfCurrencyInt - 1][3]);
                     System.out.println("Введите сумму:");
