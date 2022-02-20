@@ -1,7 +1,7 @@
 package test;
 
 import service.Converter;
-import service.Currency;
+import service.Currencies;
 
 public class ConverterTest {
 
@@ -108,9 +108,9 @@ public class ConverterTest {
             boolean[] expectedOutputValues = {true, true, false, true, true, false};
             boolean[] actualOutputValues = new boolean[expectedOutputValues.length];
             for (int i = 0; i < actualOutputValues.length; i++) {
-                actualOutputValues[i] = Converter.defineMale(inputValues[i]);
+                actualOutputValues[i] = Converter.isMale(inputValues[i]);
                 if (expectedOutputValues[i] != actualOutputValues[i]) {
-                    throw new ConvertingException(String.format("Неверно определен род для %s", Currency.valuesOfCurrency[inputValues[i]-1][1]));
+                    throw new ConvertingException(String.format("Неверно определен род для %s", Currencies.VALUES_OF_CURRENCIES[inputValues[i] - 1][1]));
                 }
             }
             System.out.printf("%s is passed\n", scenario);

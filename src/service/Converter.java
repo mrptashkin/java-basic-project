@@ -17,33 +17,33 @@ public class Converter {
         switch (di / 10) {
             case 0 -> {
                 if (di != 0) {
-                    if (defineMale(indexOfCurrency)) {
-                        resultDecade = Numbers.uniqueUnits[di - 1];
+                    if (isMale(indexOfCurrency)) {
+                        resultDecade = Numbers.UNIQUE_UNITS[di - 1];
                     } else {
                         switch (di % 10) {
-                            case 1 -> resultDecade = Numbers.numberForThousandOrFemale[0];
-                            case 2 -> resultDecade = Numbers.numberForThousandOrFemale[1];
-                            default -> resultDecade = Numbers.uniqueUnits[di - 1];
+                            case 1 -> resultDecade = Numbers.NUMBERS_FOR_THOUSAND_OR_FEMALE[0];
+                            case 2 -> resultDecade = Numbers.NUMBERS_FOR_THOUSAND_OR_FEMALE[1];
+                            default -> resultDecade = Numbers.UNIQUE_UNITS[di - 1];
                         }
                     }
                 } else resultDecade = "ноль";
             }
-            case 1 -> resultDecade = Numbers.uniqueDecades[di - 10];
+            case 1 -> resultDecade = Numbers.UNIQUE_DECADES[di - 10];
             case 2, 3, 4, 5, 6, 7, 8, 9 -> {
-                if (defineMale(indexOfCurrency)) {
+                if (isMale(indexOfCurrency)) {
                     if (di % 10 != 0) {
-                        resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2] + " " +
-                                Numbers.uniqueUnits[Integer.parseInt(substringUnits) - 1];
+                        resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2] + " " +
+                                Numbers.UNIQUE_UNITS[Integer.parseInt(substringUnits) - 1];
                     } else {
-                        resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2];
+                        resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2];
                     }
                 } else {
                     switch (di % 10) {
-                        case 0 -> resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2];
-                        case 1 -> resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2] + " " + Numbers.numberForThousandOrFemale[0];
-                        case 2 -> resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2] + " " + Numbers.numberForThousandOrFemale[1];
-                        default -> resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2] + " " +
-                                Numbers.uniqueUnits[Integer.parseInt(substringUnits) - 1];
+                        case 0 -> resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2];
+                        case 1 -> resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2] + " " + Numbers.NUMBERS_FOR_THOUSAND_OR_FEMALE[0];
+                        case 2 -> resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2] + " " + Numbers.NUMBERS_FOR_THOUSAND_OR_FEMALE[1];
+                        default -> resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2] + " " +
+                                Numbers.UNIQUE_UNITS[Integer.parseInt(substringUnits) - 1];
                     }
                 }
             }
@@ -65,12 +65,12 @@ public class Converter {
                 String substringDecades = number.substring(number.length() - 2);
                 if (numberInt % 100 != 0)
                     if (numberInt / 100 != 0) {
-                        resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1] + " " + getDecades(substringDecades, indexOfCurrency);
+                        resultHundreds = Numbers.HUNDREDS[Integer.parseInt(substringHundreds) - 1] + " " + getDecades(substringDecades, indexOfCurrency);
                     } else {
                         resultHundreds = getDecades(substringDecades, indexOfCurrency);
                     }
                 else {
-                    resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1];
+                    resultHundreds = Numbers.HUNDREDS[Integer.parseInt(substringHundreds) - 1];
 
                 }
             }
@@ -92,25 +92,23 @@ public class Converter {
         switch (di / 10) {
             case 0 -> {
                 if (di != 0) {
-                        resultDecade = Numbers.uniqueUnits[di - 1];
+                    resultDecade = Numbers.UNIQUE_UNITS[di - 1];
                 } else resultDecade = "ноль";
             }
-            case 1 -> resultDecade = Numbers.uniqueDecades[di - 10];
+            case 1 -> resultDecade = Numbers.UNIQUE_DECADES[di - 10];
             case 2, 3, 4, 5, 6, 7, 8, 9 -> {
 
-                    if (di % 10 != 0) {
-                        resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2] + " " +
-                                Numbers.uniqueUnits[Integer.parseInt(substringUnits) - 1];
-                    } else {
-                        resultDecade = Numbers.decades[Integer.parseInt(substringDecades) - 2];
-                    }
+                if (di % 10 != 0) {
+                    resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2] + " " +
+                            Numbers.UNIQUE_UNITS[Integer.parseInt(substringUnits) - 1];
+                } else {
+                    resultDecade = Numbers.DECADES[Integer.parseInt(substringDecades) - 2];
+                }
             }
             default -> System.out.println("Что-то пошло не так в gettingDecades");
         }
         return resultDecade;
     }
-
-
 
 
     public static String getMillions(String number) {
@@ -123,12 +121,12 @@ public class Converter {
             String substringDecades = number.substring(number.length() - 2);
             if (numberInt % 100 != 0)
                 if (numberInt / 100 != 0) {
-                    resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1] + " " + getDecadesForMillion(substringDecades);
+                    resultHundreds = Numbers.HUNDREDS[Integer.parseInt(substringHundreds) - 1] + " " + getDecadesForMillion(substringDecades);
                 } else {
                     resultHundreds = getDecadesForMillion(substringDecades);
                 }
             else {
-                resultHundreds = Numbers.hundreds[Integer.parseInt(substringHundreds) - 1];
+                resultHundreds = Numbers.HUNDREDS[Integer.parseInt(substringHundreds) - 1];
             }
         }
         return resultHundreds;
@@ -162,18 +160,18 @@ public class Converter {
             String preLastDigit = number.substring(number.length() - 2, number.length() - 1);
             if (!preLastDigit.equals("1")) {
                 switch (lastDigit) {
-                    case "1" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currency.valuesOfCurrency[indexOfCurrency - 1][0];
-                    case "2", "3", "4" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currency.valuesOfCurrency[indexOfCurrency - 1][1];
-                    case "0", "5", "6", "7", "8", "9" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currency.valuesOfCurrency[indexOfCurrency - 1][2];
+                    case "1" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][0];
+                    case "2", "3", "4" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][1];
+                    case "0", "5", "6", "7", "8", "9" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][2];
                     default -> System.out.println("Что-то пошло не так в matching...");
                 }
             } else
-                rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currency.valuesOfCurrency[indexOfCurrency - 1][2];
+                rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][2];
         } else {
             switch (lastDigit) {
-                case "1" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currency.valuesOfCurrency[indexOfCurrency - 1][0];
-                case "2", "3", "4" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currency.valuesOfCurrency[indexOfCurrency - 1][1];
-                case "0", "5", "6", "7", "8", "9" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currency.valuesOfCurrency[indexOfCurrency - 1][2];
+                case "1" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][0];
+                case "2", "3", "4" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][1];
+                case "0", "5", "6", "7", "8", "9" -> rightCurrency = convertNumber(number, indexOfCurrency) + " " + Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][2];
                 default -> System.out.println("Что-то пошло не так в matching...");
             }
         }
@@ -191,15 +189,15 @@ public class Converter {
             switch (lastDigitInt) {
 
                 case 1 -> {
-                    thousandResult = hundredResult.substring(0, hundredResult.length() - 4) + Numbers.numberForThousandOrFemale[0];
-                    matchedThousand = thousandResult + " " + Numbers.thousand[0];
+                    thousandResult = hundredResult.substring(0, hundredResult.length() - 4) + Numbers.NUMBERS_FOR_THOUSAND_OR_FEMALE[0];
+                    matchedThousand = thousandResult + " " + Numbers.THOUSANDS[0];
                 }
                 case 2 -> {
-                    thousandResult = hundredResult.substring(0, hundredResult.length() - 3) + Numbers.numberForThousandOrFemale[1];
-                    matchedThousand = thousandResult + " " + Numbers.thousand[1];
+                    thousandResult = hundredResult.substring(0, hundredResult.length() - 3) + Numbers.NUMBERS_FOR_THOUSAND_OR_FEMALE[1];
+                    matchedThousand = thousandResult + " " + Numbers.THOUSANDS[1];
                 }
-                case 3, 4 -> matchedThousand = hundredResult + " " + Numbers.thousand[1];
-                default -> matchedThousand = hundredResult + " " + Numbers.thousand[2];
+                case 3, 4 -> matchedThousand = hundredResult + " " + Numbers.THOUSANDS[1];
+                default -> matchedThousand = hundredResult + " " + Numbers.THOUSANDS[2];
             }
         } else matchedThousand = "";
         return matchedThousand;
@@ -212,25 +210,36 @@ public class Converter {
         String millionResult = getMillions(substringMillion);
         int lastDigitInt = Integer.parseInt(lastDigit);
         switch (lastDigitInt) {
-            case 1 -> matchedMillion = millionResult + " " + Numbers.millions[0];
-            case 2, 3, 4 -> matchedMillion = millionResult + " " + Numbers.millions[1];
-            default -> matchedMillion = millionResult + " " + Numbers.millions[2];
+            case 1 -> matchedMillion = millionResult + " " + Numbers.MILLIONS[0];
+            case 2, 3, 4 -> matchedMillion = millionResult + " " + Numbers.MILLIONS[1];
+            default -> matchedMillion = millionResult + " " + Numbers.MILLIONS[2];
         }
         return matchedMillion;
     }
 
-    static @NotNull String outputResult(String number, int indexOfCurrency) {
+    private static @NotNull String outputResult(String number, int indexOfCurrency) {
         String finalText;
         finalText = "РЕЗУЛЬТАТ: " + matchCurrency(number, indexOfCurrency);
         return finalText;
     }
 
-    public static boolean defineMale(int indexOfCurrency) {
-        for (int i = 0; i < Currency.femaleCurrencies.length; i++) {
-            if (Currency.valuesOfCurrency[indexOfCurrency - 1][0].equals(Currency.femaleCurrencies[i]))
+    public static boolean isMale(int indexOfCurrency) {
+        for (int i = 0; i < Currencies.FEMALE_CURRENCIES.length; i++) {
+            if (Currencies.VALUES_OF_CURRENCIES[indexOfCurrency - 1][0].equals(Currencies.FEMALE_CURRENCIES[i]))
                 return false;
         }
         return true;
+    }
+
+    public static @NotNull String getOutputResult(String number, int indexOfCurrency) {
+        String regexNumber = "[0-9]+";
+        if (number.matches(regexNumber)) {
+            return outputResult(number, indexOfCurrency)+"\n";
+        } else {
+            if (number.equals("ВЫХОД")||number.equals("EXIT")) return "EXIT";
+            else
+                return "Введенное Вами значение не является числом или является отрицательным числом!\nПопробуйте еще раз:";
+        }
     }
 
 }
