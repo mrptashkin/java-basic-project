@@ -110,7 +110,7 @@ public class ConverterTest {
             for (int i = 0; i < actualOutputValues.length; i++) {
                 actualOutputValues[i] = Converter.defineMale(inputValues[i]);
                 if (expectedOutputValues[i] != actualOutputValues[i]) {
-                    throw new ConvertingException(String.format("Неверно определен род для %s", Currency.valuesOfCurrency[inputValues[i]-1][1]));
+                    throw new ConvertingException(String.format("Неверно определен род для %s", Currency.getValuesOfCurrencies()[inputValues[i] - 1][1]));
                 }
             }
             System.out.printf("%s is passed\n", scenario);
